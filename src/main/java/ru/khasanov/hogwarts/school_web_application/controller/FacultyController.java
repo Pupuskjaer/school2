@@ -54,6 +54,7 @@ public class FacultyController {
         }
         return ResponseEntity.ok(faculties);
     }
+
     @GetMapping("getByNameOrColor")
     public ResponseEntity<Collection<Faculty>> getByNameOrColor(@RequestParam(required = false) String name
             ,@RequestParam(required = false) String color) {
