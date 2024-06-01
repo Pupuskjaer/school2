@@ -42,7 +42,7 @@ public class FacultyControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    void testPostAddingFaculty() {
+    void testPostAddingFaculty () {
         ResponseEntity<Faculty> response = this.restTemplate.exchange(
                 "http://localhost:" + port + "/faculty"
                 , HttpMethod.POST
@@ -79,7 +79,7 @@ public class FacultyControllerTest {
     }
 
     @Test
-    void testDeleteFaculty() {
+    void testDeleteFaculty() throws Exception{
         ResponseEntity<Faculty> responseFaculty = this.restTemplate.exchange(
                 "http://localhost:" + port + "/faculty"
                 , HttpMethod.POST
@@ -176,7 +176,7 @@ public class FacultyControllerTest {
     }
 
     @Test
-    void testGetFacultysStudent() {
+    void testGetFacultysStudent () {
 
         ResponseEntity<List<Student>> response = restTemplate.exchange(
                 "http://localhost:" + port + "/faculty/getFacultysStudents/?name=" + FACULTY_4.getName(),

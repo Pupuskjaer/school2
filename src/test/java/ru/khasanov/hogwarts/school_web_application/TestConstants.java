@@ -31,4 +31,29 @@ public class TestConstants {
     public final static List<Integer> NULL_AGE_LIST = new ArrayList<>(List.of(
             27,35,45
     ));
+
+    /*
+    -------------------------------------------------------------------------------------------------------------------
+                For MVC-tests
+    -------------------------------------------------------------------------------------------------------------------
+     */
+    public  static final Student TEST_MVC_STUDENT = new Student(1L, "Antonio", 23);
+    public  static final Long ID_OF_TEST_MVC_STUDENT = TEST_MVC_STUDENT.getId();
+    public  static final String NAME_OF_TEST_MVC_STUDENT = TEST_MVC_STUDENT.getName();
+    public  static final int AGE_OF_TEST_MVC_STUDENT = TEST_MVC_STUDENT.getAge();
+
+    public  static final Student TEST_MVC_STUDENT2 = new Student(1L, "Ricardo", 29);
+    public  static final Long ID_OF_TEST_MVC_STUDENT2 = TEST_MVC_STUDENT2.getId();
+    public  static final String NAME_OF_TEST_MVC_STUDENT2 = TEST_MVC_STUDENT2.getName();
+    public  static final int AGE_OF_TEST_MVC_STUDENT2 = TEST_MVC_STUDENT2.getAge();
+
+    public  static final Faculty TEST_MVC_FACULTY = new Faculty(1L, "Brentford", "Red");
+    public  static final Long ID_OF_TEST_MVC_FACULTY = TEST_MVC_FACULTY.getId();
+    public  static final String NAME_OF_TEST_MVC_FACULTY = TEST_MVC_FACULTY.getName();
+    public  static final String COLOR_OF_TEST_MVC_FACULTY = TEST_MVC_FACULTY.getColor();
+
+    public  static final Faculty TEST_MVC_FACULTY2 = new Faculty(1L, "Tenerife", "Blue");
+    public  static final Long ID_OF_TEST_MVC_FACULTY2 = TEST_MVC_FACULTY2.getId();
+    public  static final String NAME_OF_TEST_MVC_FACULTY2 = TEST_MVC_FACULTY2.getName();
+    public  static final String COLOR_OF_TEST_MVC_FACULTY2 = TEST_MVC_FACULTY2.getColor();
 }
