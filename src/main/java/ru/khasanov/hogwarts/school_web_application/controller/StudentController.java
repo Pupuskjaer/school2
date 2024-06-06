@@ -6,6 +6,7 @@ import ru.khasanov.hogwarts.school_web_application.model.Student;
 import ru.khasanov.hogwarts.school_web_application.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -15,6 +16,7 @@ public class StudentController {
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
+
     @PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody Student Student) {
         return ResponseEntity.ok(studentService.add(Student));
@@ -23,7 +25,7 @@ public class StudentController {
     @GetMapping("find/{id}")
     public ResponseEntity<Student> findStudent(@PathVariable long id) {
         Student foundStudent = studentService.find(id);
-        if (foundStudent==null) {
+        if (foundStudent == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundStudent);
@@ -32,7 +34,7 @@ public class StudentController {
     @PutMapping
     public ResponseEntity<Student> editStudent(@RequestBody Student Student) {
         Student foundStudent = studentService.edit(Student);
-        if (foundStudent==null) {
+        if (foundStudent == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundStudent);
@@ -57,7 +59,7 @@ public class StudentController {
     public ResponseEntity<Collection<Student>> getByAgeBetween(
             @RequestParam int min
             , @RequestParam int max) {
-        if (min<0||max<0) {
+        if (min < 0 || max < 0) {
             ResponseEntity.badRequest().build();
         }
         Collection<Student> foundStudent = studentService.getByAgeBetween(min, max);
@@ -70,5 +72,20 @@ public class StudentController {
             return ResponseEntity.ok(studentService.gatStudentsFaculty(name));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/getAmountOfStudents")
+    public int getAMountOfStudents() {
+        return studentService.getAmountOfStudents();
+    }
+
+    @GetMapping("/getAverageStudentAge")
+    public int getAverageStudentAge() {
+        return studentService.getAverageAgeOfStudents();
+    }
+
+    @GetMapping("/getLastFiveStudents")
+    public List<Student> getLastFiveStudents(){
+        return studentService.getLastFiveStudents();
     }
 }
