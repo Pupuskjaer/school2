@@ -1,6 +1,7 @@
 package ru.khasanov.hogwarts.school_web_application.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.khasanov.hogwarts.school_web_application.model.Avatar;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -84,5 +86,10 @@ private String avatarsDir; // переменная, содержащая зан�
 
     public Avatar findAvatar(Long id) {
         return avatarRepository.findById(id).get();
+    }
+
+    public List<Avatar> findAllAvatars(Integer pageNumber,Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return avatarRepository.findAll(pageRequest).getContent();
     }
 }
