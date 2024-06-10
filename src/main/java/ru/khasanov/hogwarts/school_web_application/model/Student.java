@@ -104,7 +104,6 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", faculty=" + faculty +
-                ", avatar=" + avatar +
                 '}';
     }
 }
