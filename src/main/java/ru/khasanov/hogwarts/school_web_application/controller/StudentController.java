@@ -1,5 +1,7 @@
 package ru.khasanov.hogwarts.school_web_application.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.khasanov.hogwarts.school_web_application.model.Student;
@@ -43,12 +45,14 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable long id) {
         studentService.delete(id);
+
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("getByAge/{age}")
     public ResponseEntity<Collection<Student>> students(@PathVariable int age) {
         Collection<Student> students = studentService.getStudentsByAge(age);
+
         if (students.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -63,6 +67,7 @@ public class StudentController {
             ResponseEntity.badRequest().build();
         }
         Collection<Student> foundStudent = studentService.getByAgeBetween(min, max);
+
         return ResponseEntity.ok(foundStudent);
     }
 
@@ -75,7 +80,7 @@ public class StudentController {
     }
 
     @GetMapping("/getAmountOfStudents")
-    public int getAMountOfStudents() {
+    public int getAmountOfStudents() {
         return studentService.getAmountOfStudents();
     }
 
