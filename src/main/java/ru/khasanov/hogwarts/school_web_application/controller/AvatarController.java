@@ -1,5 +1,7 @@
 package ru.khasanov.hogwarts.school_web_application.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ import java.nio.file.Path;
 
 @RestController
 public class AvatarController {
+
+
     private final AvatarService avatarService;
 
     public AvatarController(AvatarService avatarService) {

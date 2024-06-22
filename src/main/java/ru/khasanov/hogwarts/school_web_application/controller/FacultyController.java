@@ -1,5 +1,7 @@
 package ru.khasanov.hogwarts.school_web_application.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.khasanov.hogwarts.school_web_application.model.Faculty;
@@ -13,6 +15,7 @@ import java.util.Collection;
 public class FacultyController {
     private final FacultyService facultyService;
 
+
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
@@ -25,6 +28,7 @@ public class FacultyController {
     @GetMapping("find/{id}")
     public ResponseEntity<Faculty> findFaculty(@PathVariable long id) {
         Faculty foundFaculty = facultyService.find(id);
+
         if (foundFaculty==null) {
             return ResponseEntity.notFound().build();
         }
@@ -34,6 +38,7 @@ public class FacultyController {
     @PutMapping
     public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.edit(faculty);
+
         if (foundFaculty==null) {
             return ResponseEntity.notFound().build();
         }
@@ -43,12 +48,14 @@ public class FacultyController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable long id) {
         facultyService.delete(id);
+
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("getByColor/{color}")
     public ResponseEntity<Collection<Faculty>> getFacultyByColor(@PathVariable String color) {
         Collection<Faculty> faculties = facultyService.getFacultyByColor(color);
+
         if (faculties.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -59,6 +66,7 @@ public class FacultyController {
     public ResponseEntity<Collection<Faculty>> getByNameOrColor(@RequestParam(required = false) String name
             ,@RequestParam(required = false) String color) {
         Collection<Faculty> faculties = facultyService.getFacultyByNameOrColor(name, color);
+
         if (!faculties.isEmpty()) {
             return ResponseEntity.ok(faculties);
         }
@@ -67,6 +75,7 @@ public class FacultyController {
 
     @GetMapping("getFacultysStudents")
     public ResponseEntity<Collection<Student>> getFacultysStudents(@RequestParam String name) {
+
         if (!name.isEmpty()) {
             return ResponseEntity.ok(facultyService.getFacultysStudents(name));
         }
