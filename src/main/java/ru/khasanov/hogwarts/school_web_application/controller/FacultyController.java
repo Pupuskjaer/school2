@@ -1,7 +1,5 @@
 package ru.khasanov.hogwarts.school_web_application.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.khasanov.hogwarts.school_web_application.model.Faculty;
@@ -9,6 +7,7 @@ import ru.khasanov.hogwarts.school_web_application.model.Student;
 import ru.khasanov.hogwarts.school_web_application.service.FacultyService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("faculty")
@@ -80,5 +79,9 @@ public class FacultyController {
             return ResponseEntity.ok(facultyService.getFacultysStudents(name));
         }
         return ResponseEntity.notFound().build();
+    }
+    @GetMapping("getTheLongestNameOfFaculty")
+    public Optional<String> getTheLongestNameOfFaculty() {
+        return facultyService.getTheLongestNameOfFaculty();
     }
 }

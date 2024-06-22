@@ -72,4 +72,23 @@ public class StudentService {
         logger.info("Was invoked method to get last five students");
         return studentRepository.getLastFiveStudents();
     }
+
+    public Collection<String> getStudentsWithNameStartsWithA() {
+        logger.info("Was invoked method for finding students who's name starts with A");
+        return studentRepository.findAll()
+                .stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(e -> e.startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public Double getAverageAgeOfStudentsByStream() {
+        logger.info("Was invoked method for getting average students age by stream");
+        return studentRepository.findAll()
+                .stream().mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
+    }
 }
