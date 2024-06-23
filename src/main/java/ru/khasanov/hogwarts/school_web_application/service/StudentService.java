@@ -7,8 +7,7 @@ import ru.khasanov.hogwarts.school_web_application.controller.StudentController;
 import ru.khasanov.hogwarts.school_web_application.model.Student;
 import ru.khasanov.hogwarts.school_web_application.repositories.StudentRepository;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,5 +89,52 @@ public class StudentService {
                 .stream().mapToInt(Student::getAge)
                 .average()
                 .orElse(0);
+    }
+
+    // вывод имен студентов в консоль тремя потоками.
+    // Дз 4.6(параллельные потоки), задание 1
+    public void printStudentNames() {
+        List<Student> students = studentRepository.findAll();
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+        Thread thread1 = new Thread(() -> {
+            System.out.println(students.get(2).getName());
+            System.out.println(students.get(3).getName());
+        });
+        thread1.start();
+        Thread thread2 = new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        });
+        thread2.start();
+
+        thread1.interrupt();
+        thread2.interrupt();
+
+    }
+    // вывод имен студентов в консоль тремя потоками,
+    // два из которых выполняются с помощью отдельного синхронизированного метода.
+    // Дз 4.6(параллельные потоки), задание 2
+    public void printStudentNamesSynchronously() {
+        System.out.println(studentRepository.findById(13L).get().getName());
+        System.out.println(studentRepository.findById(14L).get().getName());
+        Thread thread1 = new Thread(() -> {
+            outputStudentNamesSynchronously(15);
+            outputStudentNamesSynchronously(16);
+        });
+        thread1.start();
+        Thread thread2 = new Thread(() -> {
+            outputStudentNamesSynchronously(17);
+            outputStudentNamesSynchronously(18);
+
+        });
+        thread2.start();
+
+        thread1.interrupt();
+        thread2.interrupt();
+    }
+    private synchronized void  outputStudentNamesSynchronously(long id) {
+        Student student = studentRepository.findById(id).orElse(null);
+        System.out.println(student.getName());
     }
 }
