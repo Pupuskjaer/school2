@@ -90,7 +90,35 @@ public class StudentController {
     }
 
     @GetMapping("/getLastFiveStudents")
-    public List<Student> getLastFiveStudents(){
+    public List<Student> getLastFiveStudents() {
         return studentService.getLastFiveStudents();
+    }
+
+    @GetMapping("getStudent'sNameStartsWithA")
+    public ResponseEntity<Collection<String>> getStudentsWithNameStartsWithA() {
+        Collection<String> studentsWithNameStartsWithA = studentService.getStudentsWithNameStartsWithA();
+        if (studentsWithNameStartsWithA == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studentsWithNameStartsWithA);
+    }
+
+    @GetMapping("getAverageStudentsAgeByStream")
+    public ResponseEntity<Double> getAverageStudentsAgeByStream() {
+        return ResponseEntity.ok(studentService.getAverageAgeOfStudentsByStream());
+
+    }
+
+    // вывод в консоль имена всех студентов в параллельном режиме
+    @GetMapping("print-parallel")
+    public ResponseEntity<Void> printStudentNamesToConsole (){
+        studentService.printStudentNames();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("print-synchronized")
+    public ResponseEntity<Void> printStudentNamesSynchronously() {
+        studentService.printStudentNamesSynchronously();
+        return ResponseEntity.ok().build();
     }
 }
